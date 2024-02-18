@@ -13,6 +13,8 @@ import {
 import {
   Star as StarIcon,
   StarBorder as StarBorderIcon,
+  Favorite,
+  FavoriteBorder,
 } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 
@@ -24,6 +26,8 @@ type ProductCardProps = {
   product: IProduct;
 };
 
+
+
 function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   const navigate: NavigateFunction = useNavigate();
   const favoriteContext: IFavoriteContext = useContext(FavoriteContext);
@@ -31,6 +35,10 @@ function ProductCard({ product }: ProductCardProps): React.JSX.Element {
 
   const handleEditClick = () => {
     navigate(`/product/edit/${product.id}`);
+  };
+
+  const handleDetailClick = () => {
+    navigate(`/product/${product.id}`);
   };
 
   const handleAddToFavoritesClick = () => {
@@ -80,6 +88,14 @@ function ProductCard({ product }: ProductCardProps): React.JSX.Element {
         <Typography variant="h6" component="div">
           {product.name}
         </Typography>
+        <Typography
+          variant="body2"
+          component="div"
+          onClick={handleDetailClick}
+          sx={{ cursor: 'pointer', color: 'blue' }}
+        >
+          Détails
+        </Typography>
       </CardContent>
       <CardActions>
         <Button onClick={handleEditClick} size="small">
@@ -103,9 +119,9 @@ function ProductCard({ product }: ProductCardProps): React.JSX.Element {
               sx={{ p: 0 }}
             >
               {favoriteContext.contains(product.id) ? (
-                <StarIcon />
+                <Favorite />
               ) : (
-                <StarBorderIcon />
+                <FavoriteBorder />
               )}
             </IconButton>
           </Tooltip>

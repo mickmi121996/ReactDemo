@@ -1,5 +1,6 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
+from .views import ProductDetailView
 
 from demo_api_app import views
 
@@ -13,4 +14,5 @@ urlpatterns = [
   path('get-all-categories', views.GetAllCategories.as_view()),
   path('my-favorite-products', views.MyFavoriteProducts.as_view()),
   path('my-favorite-products/<int:productid>', views.MyFavoriteProducts.as_view()),
+  path('product/<int:id>/', ProductDetailView.as_view(), name='product-detail'),
 ]

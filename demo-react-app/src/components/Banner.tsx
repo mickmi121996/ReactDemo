@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import {
   ArrowBack as ArrowBackIcon,
+  Favorite,
   Star as StarIcon,
 } from "@mui/icons-material";
 
@@ -68,7 +69,7 @@ function Banner(): React.JSX.Element {
                     color="warning"
                     sx={{ mr: 2 }}
                   >
-                    <StarIcon color="inherit" fontSize="large" />
+                    <Favorite color="inherit" fontSize="large" />
                   </Badge>
                 </IconButton>
               </Tooltip>

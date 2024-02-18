@@ -16,6 +16,7 @@ class Category(models.Model):
 class Product(models.Model):
   code = models.CharField(max_length=20)
   name = models.CharField(max_length=100, verbose_name = "nom")
+  description = models.TextField(blank=True)
   category = models.ForeignKey(Category, related_name='products', on_delete=models.PROTECT, verbose_name = "catégorie")
 
   def __str__(self):

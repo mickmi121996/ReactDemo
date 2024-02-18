@@ -6,7 +6,7 @@ from demo_api_app.models import Category, Product, FavoriteProduct
 class ProductSerializer(ModelSerializer):
   class Meta:
     model = Product
-    fields = ('id', 'code', 'name', 'category',)
+    fields = ('id', 'code', 'name', 'category', 'description')
 
 
 class CategorySerializer(ModelSerializer):

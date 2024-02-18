@@ -9,23 +9,18 @@ const UserProfile: React.FC = () => {
     useEffect(() => {
         CustomAxios.get<IUser>('/auth/users/me/')
         .then((response) => {
-            console.log(response.data);  // Vérifiez ce qui est réellement renvoyé ici
+            console.log(response.data);
             setUser(response.data);
             })
             .catch((error) => {
                 if (error.response) {
-                    // La demande a été faite et le serveur a répondu avec un statut hors de la plage 2xx
                     console.error("Erreur dans la réponse de l'API", error.response.status, error.response.data);
                 } else if (error.request) {
-                    // La demande a été faite mais aucune réponse n'a été reçue
                     console.error("Aucune réponse reçue", error.request);
                 } else {
-                    // Quelque chose s'est mal passé lors de la configuration de la requête
                     console.error("Erreur dans la configuration de la requête", error.message);
                 }
             });
-
-            
     }, []);
 
     if (!user) {

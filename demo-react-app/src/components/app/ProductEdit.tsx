@@ -17,6 +17,7 @@ import IProduct from "../../data_interfaces/IProduct";
 type FormProductEditFields = {
   code: string;
   name: string;
+  description: string;
 };
 
 function ProductEdit(): React.JSX.Element {
@@ -39,6 +40,10 @@ function ProductEdit(): React.JSX.Element {
       .string()
       .required("Le nom est obligatoire")
       .max(100, "Le nom doit contenir au plus 100 caractères"),
+    description: yup
+    .string()
+    .required("La description est obligatoire")
+    .max(500, "La description doit contenir au plus 500 caractères"),
   });
 
   const {
@@ -57,17 +62,18 @@ function ProductEdit(): React.JSX.Element {
         console.log("Successful getting product", product);
         if (product !== null) {
           setProduct(product);
-          reset(product as FormProductEditFields);
+          reset({
+            code: product.code,
+            name: product.name,
+            description: product.description
+          });
         }
       })
       .catch((err) => {
-        console.log(
-          "ERROR: An error occurred while getting product",
-          err,
-          err.response
-        );
+        console.error("ERROR: An error occurred while getting product", err);
       });
   }, [productId, reset]);
+  
 
   useEffect(() => {
     CategoryDS.getAllCategories()
@@ -161,6 +167,17 @@ function ProductEdit(): React.JSX.Element {
           label={"Nom"}
           margin="normal"
           registerReturn={register("name")}
+        />
+        <FormTextField
+          autoComplete="description"
+          disabled={product === null}
+          errorText={errors.description?.message}
+          InputLabelProps={{ shrink: true }}
+          label={"Description"}
+          margin="normal"
+          multiline
+          registerReturn={register("description")}
+          rows={4}
         />
         {product !== null && (
           <FormSelect

@@ -18,12 +18,12 @@ import SignUp from "./components/auth/SignUp";
 import Logout from "./components/auth/Logout";
 import NotFound from "./components/app/NotFound";
 import UserProfile from './components/app/UserProfile';
+import ProductDetail from './components/app/ProductDetail';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
@@ -37,6 +37,7 @@ root.render(
               />
               <Route path="product/edit/:id" element={<ProductEdit />} />
               <Route path="user/me" element={<UserProfile />} />
+              <Route path="product/:id" element={<ProductDetail />} />
             </Route>
           </Route>
           <Route path="" element={<AuthContainer />}>
@@ -48,7 +49,6 @@ root.render(
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

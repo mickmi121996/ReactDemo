@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
@@ -23,6 +24,13 @@ class ProductViewSet(ModelViewSet):
   queryset = Product.objects.all().order_by('name')
   serializer_class = ProductSerializer
   http_method_names = ['get', 'put']
+  
+# views.py
+
+class ProductDetailView(RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'id'
 
 
 class GetAllCategories(APIView):
