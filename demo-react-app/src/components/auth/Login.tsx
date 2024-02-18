@@ -58,9 +58,10 @@ export default function Login(): React.JSX.Element {
   const handleFormSubmit = (data: FormLoginFields): void => {
     setSubmitWarning("");
     setSubmitError("");
-
+  
     AccountDS.login(data.username, data.password)
-      .then(() => {
+      .then((authData) => {
+        localStorage.setItem('demo_user_name', authData.user.username);
         navigate("/");
       })
       .catch((err) => {
@@ -70,8 +71,8 @@ export default function Login(): React.JSX.Element {
           err.response
         );
         if (
-          err.response.status === 401 &&
-          err.response.data === "no_active_account"
+          err.response?.status === 401 &&
+          err.response?.data === "no_active_account"
         ) {
           setSubmitWarning(
             "Aucun compte actif n'a été trouvé avec les identifiants fournis"
@@ -83,6 +84,8 @@ export default function Login(): React.JSX.Element {
         }
       });
   };
+  
+
 
   return (
     <>

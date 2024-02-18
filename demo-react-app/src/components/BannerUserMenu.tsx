@@ -54,6 +54,11 @@ function BannerUserMenu(): React.JSX.Element {
     navigate("/logout");
   };
 
+  const handleProfileClick = () => {
+    navigate('/user/me');
+    handleCloseUserMenu();
+  };
+
   return (
     <>
       <Box>
@@ -84,26 +89,18 @@ function BannerUserMenu(): React.JSX.Element {
             horizontal: "right",
           }}
         >
-          {localStorage.getItem(storageUsername) && (
-            <MenuItem sx={{ py: "4px" }}>
+          {localStorage.getItem('demo_user_name') && (
+            <MenuItem onClick={handleProfileClick} sx={{ py: "4px" }}>
               <ListItemIcon>
                 <PersonOutlineOutlinedIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>
                 <Typography sx={{ fontSize: "0.95rem" }}>
-                  {localStorage.getItem(storageUsername)}
+                  {localStorage.getItem('demo_user_name')}
                 </Typography>
               </ListItemText>
             </MenuItem>
           )}
-          <MenuItem onClick={handleOpenAbout} sx={{ py: "4px" }}>
-            <ListItemIcon>
-              <InfoOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>
-              <Typography sx={{ fontSize: "0.95rem" }}>À propos</Typography>
-            </ListItemText>
-          </MenuItem>
           <Divider />
           <MenuItem onClick={handleLogoutClick} sx={{ py: "4px" }}>
             <ListItemIcon>

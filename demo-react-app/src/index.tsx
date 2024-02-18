@@ -17,6 +17,7 @@ import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import Logout from "./components/auth/Logout";
 import NotFound from "./components/app/NotFound";
+import UserProfile from './components/app/UserProfile';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -35,6 +36,7 @@ root.render(
                 element={<FavoriteProductView />}
               />
               <Route path="product/edit/:id" element={<ProductEdit />} />
+              <Route path="user/me" element={<UserProfile />} />
             </Route>
           </Route>
           <Route path="" element={<AuthContainer />}>

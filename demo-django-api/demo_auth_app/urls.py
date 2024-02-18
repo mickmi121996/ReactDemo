@@ -1,5 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
+from demo_auth_app.views import UserViewSet
 
 from demo_auth_app.views import \
   AccountPasswordUpdateViewSet, \
@@ -22,6 +23,8 @@ router = AuthRouter()
 
 # Appeler "account-password-update/me/" (put) pour modifier le mot de passe du compte connecté
 router.register(r'account-password-update', AccountPasswordUpdateViewSet, basename='account-password-update'),
+
+router.register(r'users', UserViewSet, basename='user')
 
 # Appeler "account-update/me/" (put) pour modifier le compte connecté
 # Appeler "account-update/get-current-user/" (post) pour récupérer les infos de compte
