@@ -9,6 +9,7 @@ import {
   IconButton,
   Tooltip,
   Typography,
+  Rating,
 } from "@mui/material";
 import {
   Star as StarIcon,
@@ -40,6 +41,8 @@ function ProductCard({ product }: ProductCardProps): React.JSX.Element {
   const handleDetailClick = () => {
     navigate(`/product/${product.id}`);
   };
+
+
 
   const handleAddToFavoritesClick = () => {
     FavoriteProductDS.addMyFavoriteProducts(product.id)
@@ -79,6 +82,16 @@ function ProductCard({ product }: ProductCardProps): React.JSX.Element {
       });
   };
 
+  const getColorForRating = (rating: number): string => {
+    if (rating >= 4) return "green";
+    if (rating >= 3) return "blue";
+    if (rating >= 2) return "yellow";
+    if (rating >= 1) return "orange";
+    return "red";
+  };
+
+  const ratingColor = getColorForRating(product.average_rating || 0);
+
   return (
     <Card>
       <CardContent>
@@ -96,6 +109,15 @@ function ProductCard({ product }: ProductCardProps): React.JSX.Element {
         >
           Détails
         </Typography>
+        {product.average_rating && (
+          <Rating
+            name="read-only"
+            value={product.average_rating}
+            readOnly
+            precision={0.5}
+            sx={{ color: ratingColor }}
+          />
+        )}
       </CardContent>
       <CardActions>
         <Button onClick={handleEditClick} size="small">

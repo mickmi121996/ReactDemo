@@ -17,6 +17,7 @@ export interface RatingWithCommentProps {
 
 export interface ProductRatingsListProps {
     productId: number;
+    currentUsername: string;
 }
 
 export interface Rating {

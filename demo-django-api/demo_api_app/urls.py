@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import ProductDetailView, CategoryViewSet, ProductViewSet, ProductReviewViewSet, GetAllCategories, MyFavoriteProducts
+from .views import ProductDetailView, CategoryViewSet, ProductViewSet, ProductReviewViewSet, GetAllCategories, MyFavoriteProducts, HasUserRatedView
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
@@ -14,4 +14,5 @@ urlpatterns = [
   path('my-favorite-products', MyFavoriteProducts.as_view()),
   path('my-favorite-products/<int:productid>', MyFavoriteProducts.as_view()),
   path('product/<int:id>/', ProductDetailView.as_view(), name='product-detail'),
+  path('productreviews/has_user_rated/<int:product_id>/', HasUserRatedView.as_view(), name='has-user-rated'),
 ]

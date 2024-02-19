@@ -43,6 +43,16 @@ class ProductReviewViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        
+class HasUserRatedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, product_id):
+        user = request.user
+        has_rated = ProductReview.objects.filter(product_id=product_id, user=user).exists()
+        username = user.username if has_rated else None
+        return Response({"hasRated": has_rated, "username": username})
+
 
 class ProductDetailView(RetrieveAPIView):
     queryset = Product.objects.all()
