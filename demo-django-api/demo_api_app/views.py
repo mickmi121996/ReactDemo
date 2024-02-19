@@ -5,11 +5,13 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import viewsets
 
-from demo_api_app.models import Category, Product, FavoriteProduct
+from demo_api_app.models import Category, Product, FavoriteProduct, ProductReview
 from demo_api_app.serializers import \
   CategorySerializer, \
-  ProductSerializer
+  ProductSerializer, \
+  ProductReviewSerializer
 
 
 class CategoryViewSet(ModelViewSet):
@@ -26,6 +28,21 @@ class ProductViewSet(ModelViewSet):
   http_method_names = ['get', 'put']
   
 # views.py
+
+class ProductReviewViewSet(viewsets.ModelViewSet):
+    queryset = ProductReview.objects.all()
+    serializer_class = ProductReviewSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        product_id = self.request.query_params.get('product')
+        if product_id is not None:
+            queryset = queryset.filter(product_id=product_id)
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class ProductDetailView(RetrieveAPIView):
     queryset = Product.objects.all()
