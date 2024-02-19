@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid,  Card, CardContent, CardMedia, Typography  } from '@mui/material';
+import { Grid,  Card, CardContent, CardMedia, Typography, Rating  } from '@mui/material';
 import CustomAxios from '../../data_services/CustomAxios';
 import IProduct from '../../data_interfaces/IProduct';
 import RatingWithComment from './RatingWithComment';
@@ -53,19 +53,23 @@ const ProductDetail = () => {
 
         <Grid container spacing={2}>
             <Grid item xs={12} md={8}>
-                <Card raised>
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {product.name}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Code: {product.code}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Description: {product.description}
-                        </Typography>
-                    </CardContent>
-                </Card>
+            <Card raised>
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                    {product.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Code: {product.code}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Description: {product.description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" component="div">
+                    Note Moyenne :
+                    <Rating value={product.average_rating} precision={0.1} readOnly />
+                </Typography>
+            </CardContent>
+        </Card>
                 <RatingWithComment productId={parseInt(id, 10)} onSubmit={handleRatingSubmit} />
             </Grid>
             <Grid item xs={12} md={4}>

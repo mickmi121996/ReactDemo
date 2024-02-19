@@ -4,4 +4,5 @@ export default interface IProduct {
   name: string
   description: string
   category: number
+  average_rating: number;
 }
