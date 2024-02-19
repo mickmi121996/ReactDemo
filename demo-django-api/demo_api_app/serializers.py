@@ -3,6 +3,7 @@ from .models import ProductReview
 from demo_api_app.models import Category, Product, FavoriteProduct
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from django.db.models import Avg
+from rest_framework import serializers
 from .models import Product, Category, ProductReview
 from django.contrib.auth.models import User
 
@@ -32,9 +33,9 @@ class UserSerializer(ModelSerializer):
         model = User
         fields = ('id', 'username') 
 
-class ProductReviewSerializer(ModelSerializer):
-    user = UserSerializer(read_only=True)
+class ProductReviewSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
 
     class Meta:
         model = ProductReview
-        fields = ('id', 'product', 'user', 'rating', 'comment', 'created_at')
+        fields = ('id', 'product', 'rating', 'comment', 'created_at', 'username')

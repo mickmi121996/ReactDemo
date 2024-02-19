@@ -1,12 +1,18 @@
-export interface RatingData {
+export interface NewRatingData {
     productId: number;
-    rating: number | null;
+    rating: number;
     comment: string;
+}
+
+export interface RatingData extends NewRatingData {
+    id: number;
+    created_at: string;
+    username: string;
 }
 
 export interface RatingWithCommentProps {
     productId: number;
-    onSubmit: (ratingData: RatingData) => void;
+    onSubmit: (ratingData: NewRatingData) => void;
 }
 
 export interface ProductRatingsListProps {

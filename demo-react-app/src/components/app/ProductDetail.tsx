@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid } from '@mui/material';
+import { Grid,  Card, CardContent, CardMedia, Typography  } from '@mui/material';
 import CustomAxios from '../../data_services/CustomAxios';
 import IProduct from '../../data_interfaces/IProduct';
 import RatingWithComment from './RatingWithComment';
 import ProductRatingsList from './ProductRatingList';
-import { RatingData } from '../../data_interfaces/IRatingWithCommentProps';
+import { NewRatingData, RatingData } from '../../data_interfaces/IRatingWithCommentProps';
 
 
 const ProductDetail = () => {
@@ -22,23 +22,22 @@ const ProductDetail = () => {
             });
     }, [id]);
 
-    const handleRatingSubmit = (ratingData: RatingData) => {
-        if (ratingData.rating !== null) {
-            const url = `/productreviews/`;
-            const payload = {
-                product: ratingData.productId,
-                rating: ratingData.rating,
-                comment: ratingData.comment,
-            };
-
-            CustomAxios.post(url, payload)
-                .then(response => {
-                    console.log('Évaluation enregistrée', response.data);
-                })
-                .catch(error => {
-                    console.error('Erreur', error);
-                });
-        }
+    const handleRatingSubmit = (ratingData: NewRatingData) => {
+        const url = `/productreviews/`;
+        const payload = {
+            product: ratingData.productId,
+            rating: ratingData.rating,
+            comment: ratingData.comment,
+        };
+    
+        CustomAxios.post(url, payload)
+            .then(response => {
+                console.log('Évaluation enregistrée', response.data);
+                
+            })
+            .catch(error => {
+                console.error('Erreur lors de l’enregistrement de l’évaluation', error);
+            });
     };
 
 
@@ -54,9 +53,19 @@ const ProductDetail = () => {
 
         <Grid container spacing={2}>
             <Grid item xs={12} md={8}>
-                <h1>{product.name}</h1>
-                <p>Code: {product.code}</p>
-                <p>Description: {product.description}</p>
+                <Card raised>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {product.name}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Code: {product.code}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Description: {product.description}
+                        </Typography>
+                    </CardContent>
+                </Card>
                 <RatingWithComment productId={parseInt(id, 10)} onSubmit={handleRatingSubmit} />
             </Grid>
             <Grid item xs={12} md={4}>
