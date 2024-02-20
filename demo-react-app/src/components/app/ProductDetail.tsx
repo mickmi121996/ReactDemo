@@ -15,15 +15,13 @@ const ProductDetail = () => {
     const [currentUserUsername, setCurrentUserUsername] = useState<string | null>(null);
 
     useEffect(() => {
-        if (id) { // Assurez-vous que id n'est pas undefined
+        if (id) {
             CustomAxios.get<IProduct>(`/product/${id}/`)
                 .then((response) => {
                     setProduct(response.data);
 
-                    // Après avoir récupéré les détails du produit, vérifiez si l'utilisateur a déjà évalué le produit
                     CustomAxios.get(`/productreviews/has_user_rated/${id}/`, {
                         headers: {
-                            // Assurez-vous d'inclure le jeton d'authentification si nécessaire
                         }
                     })
                         .then(ratingResponse => {
